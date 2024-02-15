@@ -6,6 +6,7 @@ import uz.pdp.messenger.back.payload.UserDTO;
 
 import static uz.pdp.messenger.front.CoutAndCin.*;
 import static uz.pdp.messenger.front.create.CreateContact.*;
+import static uz.pdp.messenger.front.create.CreateGroup.*;
 import static uz.pdp.messenger.front.OpenHandler.*;
 
 
@@ -23,7 +24,7 @@ public class CreateHandler {
             while (true){
                 switch (getInputAsString("Choose => ")){
                     case "1" -> {currentHandler = createContact(currentUser); break whileTwo;}
-                    case "2" -> {}
+                    case "2" -> {currentHandler = createGroup(currentUser); break whileTwo;}
                     case "3" -> {}
                     case exitKey -> {return;}
                     default -> coutErrorText(buttonException);

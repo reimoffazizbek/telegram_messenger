@@ -14,4 +14,5 @@ public class Chat extends Handler{
     public List<ChatUserInformation> getUserInformations() {
         return userInformations;
     }
+
 }

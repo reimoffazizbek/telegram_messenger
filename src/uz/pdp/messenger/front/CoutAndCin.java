@@ -14,9 +14,12 @@ public interface CoutAndCin {
     String backKey = "-";
     String nextKey = "+";
     String programName = "Messenger";
+    int consoleX = 170;
 
     static void coutMainText(String text){
-        System.out.println(COLOR_BLUE + text);
+        String repeat = "-".repeat((consoleX/2) - (text.length()/2));
+
+        System.out.println(COLOR_BLUE + repeat + text + repeat);
     }
     static void coutAdditionText(String text){
         System.out.println(COLOR_YELLOW + text);
@@ -35,6 +38,12 @@ public interface CoutAndCin {
     }
     static void coutNextButton(){
         System.out.println(COLOR_PURPLE + nextKey + ". Next⏭️");
+    }
+    static void coutMyMessage(String message){
+        System.out.println(COLOR_WHITE + message);
+    }
+    static void coutHisMessage(String message){
+        System.out.println(COLOR_CYAN + message);
     }
     static String getInputAsString(String message){
         System.out.print(COLOR_CYAN + message);

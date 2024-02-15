@@ -84,6 +84,22 @@ public interface CreateUserInformation {
         }
     }
 
+    static String createBio(String additionMessage, boolean next, boolean back){
+        coutAdditionText(additionMessage);
+        if(next) coutNextButton();
+        if(back) coutBackButton();
+        coutExitButton();
+        String bio;
+        while (true){
+            bio = getInputAsString("bio = ");
+            if(bio.equals(exitKey)) return bio;
+            if(next && bio.equals(nextKey)) return bio;
+            if(back && bio.equals(backKey)) return bio;
+            if(checkBio(bio)) return bio;
+            else coutErrorText(informationException);
+        }
+    }
+
     static String createPhoneNumberOrUsername(String additionMessage, boolean next, boolean back){
         coutAdditionText(additionMessage);
         if(next) coutNextButton();

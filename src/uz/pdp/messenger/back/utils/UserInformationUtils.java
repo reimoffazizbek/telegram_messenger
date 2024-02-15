@@ -19,6 +19,10 @@ public interface UserInformationUtils {
         username = username.trim();
         if (username.length() < 5) return false;
         else if (!username.startsWith("@")) return false;
+        for (int i = 1; i < username.length(); i++) {
+            if(isDigit(username.charAt(i)) || isAlphabetic(username.charAt(i)) || username.charAt(i)=='_') continue;
+            return false;
+        }
         return true;
     }
 
@@ -29,6 +33,11 @@ public interface UserInformationUtils {
         for (int i = 4; i < phoneNumber.length(); i++) {
             if (!isDigit(phoneNumber.charAt(i))) return false;
         }
+        return true;
+    }
+    static boolean checkBio(String bio){
+        bio = bio.trim();
+        if(bio.isBlank() || bio.length()>30) return false;
         return true;
     }
 

@@ -1,18 +1,18 @@
-package uz.pdp.messenger.back.modul.handler.chat;
+package uz.pdp.messenger.back.modul.handler.group;
 
 import uz.pdp.messenger.back.modul.User;
-import uz.pdp.messenger.back.modul.handler.Handler;
-import uz.pdp.messenger.back.modul.handler.Message;
 import uz.pdp.messenger.back.modul.handler.MessageHandler;
+import uz.pdp.messenger.back.modul.handler.chat.Chat;
+import uz.pdp.messenger.back.modul.handler.chat.ChatUserInformation;
 
 import java.util.UUID;
 
-public class ChatMessage extends MessageHandler {
+public class GroupMessage extends MessageHandler {
     private User senderUser;
     private boolean seen = false;
 
-    public ChatMessage(Chat chat, User senderUser, String message) {
-        super(chat, message);
+    public GroupMessage(Group group, User senderUser, String message) {
+        super(group, message);
         this.senderUser = senderUser;
     }
     @Override
@@ -20,8 +20,8 @@ public class ChatMessage extends MessageHandler {
         if(!senderUser.getId().equals(hisOwnId)) {
             this.seen = true;
         }
-        if(super.getHandler() instanceof Chat chat){
-            for (ChatUserInformation userInformation : chat.getUserInformations()) {
+        if(super.getHandler() instanceof Group group){
+            for (GroupUserInformation userInformation : group.getUsers()) {
                 if(userInformation.getUser().getId().equals(hisOwnId))
                     userInformation.setNewSms(0);
             }

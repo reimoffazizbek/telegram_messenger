@@ -2,6 +2,7 @@ package uz.pdp.messenger.back.service.impl;
 
 import uz.pdp.messenger.back.exception.InformationException;
 import uz.pdp.messenger.back.modul.User;
+import uz.pdp.messenger.back.payload.EditAccountDTO;
 import uz.pdp.messenger.back.payload.SignInDTO;
 import uz.pdp.messenger.back.payload.SignUpDTO;
 import uz.pdp.messenger.back.payload.UserDTO;
@@ -9,6 +10,8 @@ import uz.pdp.messenger.back.repository.AuthRepository;
 import uz.pdp.messenger.back.repository.impl.AuthRepositoryImpl;
 import uz.pdp.messenger.back.service.AuthService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringJoiner;
 import java.util.UUID;
 
@@ -60,18 +63,26 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public UserDTO findUserByPhoneNumber(String phoneNumber) {
+    public UserDTO findUserByPhoneNumber(String phoneNumber, UUID id) {
         User userByPhoneNumber = authRepository.findUserByPhoneNumber(phoneNumber);
         if(userByPhoneNumber==null)
             return null;
-        return new UserDTO(userByPhoneNumber);
+        return new UserDTO(userByPhoneNumber, id);
     }
 
     @Override
-    public boolean editeOrCreateContact(UUID firstUserId, UUID secondUserId, String firstname, String lastname) {
+    public UserDTO findUserByUsername(String username, UUID id) {
+        User userByUsername = authRepository.findUserByUsername(username);
+        if(userByUsername==null)
+            return null;
+        return new UserDTO(userByUsername, id);
+    }
+
+    @Override
+    public UserDTO editeOrCreateContact(UUID firstUserId, UUID secondUserId, String firstname, String lastname) {
         User user = authRepository.findUserByUserId(secondUserId);
         user.setLogoAndFullName(firstUserId, firstname, lastname);
-        return true;
+        return new UserDTO(user, firstUserId);
     }
 
     @Override
@@ -79,4 +90,38 @@ public class AuthServiceImpl implements AuthService {
         User secondUser = authRepository.findUserByUserId(secondUserDto.id());
         return secondUser.isContact(firstUserDto.id());
     }
+
+    @Override
+    public List<UserDTO> findAllMyContactByUserId(UUID userId) {
+        List<User> users = authRepository.findAllMyContactByUserId(userId);
+        List<UserDTO> result = new ArrayList<>();
+        for (User user : users) {
+            result.add(new UserDTO(user, userId));
+        }
+        return result;
+    }
+
+    @Override
+    public UserDTO editFirstNameAndLastName(UUID currentUserId, String newFirstname, String newLastname) {
+        User user = authRepository.findUserByUserId(currentUserId);
+        user.setLogoAndFullName(currentUserId, newFirstname, newLastname);
+        return new UserDTO(user, currentUserId);
+    }
+
+    @Override
+    public UserDTO editUsername(UUID currentUserId, String newUsername) {
+        User user = authRepository.findUserByUserId(currentUserId);
+        if(authRepository.findUserByUsername(newUsername) != null) throw new RuntimeException("Such a username exists");
+        user.setUsername(newUsername);
+        return new UserDTO(user, currentUserId);
+    }
+
+    @Override
+    public UserDTO editBio(UUID currentUserId, String newBio) {
+        User user = authRepository.findUserByUserId(currentUserId);
+        user.setBio(newBio);
+        return new UserDTO(user, currentUserId);
+    }
+
+
 }

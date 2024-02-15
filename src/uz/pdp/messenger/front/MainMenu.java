@@ -1,9 +1,6 @@
 package uz.pdp.messenger.front;
 
-import uz.pdp.messenger.back.payload.ChatDTO;
-import uz.pdp.messenger.back.payload.ChatUserInformationDTO;
-import uz.pdp.messenger.back.payload.HandlerDTO;
-import uz.pdp.messenger.back.payload.UserDTO;
+import uz.pdp.messenger.back.payload.*;
 import uz.pdp.messenger.back.service.AuthService;
 import uz.pdp.messenger.back.service.HandlerService;
 import uz.pdp.messenger.back.service.impl.AuthServiceImpl;
@@ -15,6 +12,7 @@ import static uz.pdp.messenger.front.MenuCommands.*;
 import static uz.pdp.messenger.back.utils.Design.*;
 import static uz.pdp.messenger.front.CoutAndCin.*;
 import static uz.pdp.messenger.front.OpenHandler.*;
+import static uz.pdp.messenger.front.AccountSettings.*;
 import static uz.pdp.messenger.front.CreateHandler.*;
 
 public class MainMenu {
@@ -44,7 +42,9 @@ public class MainMenu {
             }catch (NumberFormatException e){
                 switch (commandOrButton){
                     case search -> {}
-                    case settings -> {}
+                    case settings -> {
+                        currentUser = startSettings(currentUser);
+                    }
                     case create -> {createHandler(currentUser);}
                     default -> coutErrorText(commandNotFound);
                 }
@@ -53,7 +53,7 @@ public class MainMenu {
     }
 
     private static void HandlersDisplay() {
-        coutMainText("------" + programName + "-------------------------------");
+        coutMainText(programName);
         int numberOfHandlers = 1;
         myHandlers = handlerService.findAllMyHandlerByUserId(currentUser.id());
         String chatName = null;
@@ -73,7 +73,22 @@ public class MainMenu {
                         replyOrMark = chatUserInformationDTO.replyOrMark();
                     }
                 }
-                coutButtonText(chatColor + numberOfHandlers++ + ". " + chatLogo + " " + chatName + " |" + chatNewSms + ((replyOrMark) ? "@|" : "|"));
+                if(chatNewSms==0)
+                    coutButtonText(chatColor + numberOfHandlers++ + ". " + chatLogo + " " + chatName + " |" + chatNewSms + ((replyOrMark) ? "@|" : "|"));
+                else
+                    coutButtonText(chatColor + numberOfHandlers++ + ". " + NEW_SMS + chatLogo + " " + chatName + " |" + chatNewSms + ((replyOrMark) ? "@|" : "|") + COLOR_RESET);
+            } else if(myHandler instanceof GroupDTO groupDTO){
+                for (GroupUserInformationDTO groupUserInformationDTO : groupDTO.GroupUserInformationDTO()) {
+                    if(groupUserInformationDTO.user().id().equals(currentUser.id())){
+                        chatNewSms = groupUserInformationDTO.newSms();
+                        replyOrMark = groupUserInformationDTO.replyOrMark();
+                    }
+                }
+                if(chatNewSms==0)
+                    coutButtonText(GROUP_COLOR + numberOfHandlers++ + ". " + groupDTO.logo() + " " + groupDTO.groupName() + " |" + chatNewSms + ((replyOrMark) ? "@|" : "|") + COLOR_RESET);
+                else
+                    coutButtonText(GROUP_COLOR + numberOfHandlers++ + ". " + NEW_SMS + groupDTO.logo() + " " + groupDTO.groupName() + " |" + chatNewSms + ((replyOrMark) ? "@|" : "|") + COLOR_RESET);
+
             }
         }
     }

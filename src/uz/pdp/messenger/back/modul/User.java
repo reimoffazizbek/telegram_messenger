@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class User {
+public class User{
     private final UUID id = UUID.randomUUID(); // *Unique
     private Map<UUID, NameAndLogo> nameAndLogo = new HashMap<>();
     private String username; // *Unique

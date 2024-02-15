@@ -50,4 +50,15 @@ public class AuthRepositoryImpl implements AuthRepository {
         }
         return null;
     }
+
+    @Override
+    public List<User> findAllMyContactByUserId(UUID userId) {
+        List<User> result = new ArrayList<>();
+        for (User user : users) {
+            if(!user.getId().equals(userId) && user.isContact(userId)){
+                result.add(user);
+            }
+        }
+        return result;
+    }
 }

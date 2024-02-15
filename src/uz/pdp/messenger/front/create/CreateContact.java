@@ -30,7 +30,7 @@ public class CreateContact {
                 }
                 level++;
             } if(level==2){
-                firstname = createFirstname("Enter your firstname.", true, true);
+                firstname = createFirstname("Enter firstname.", true, true);
                 if(firstname.equals(exitKey)) return null;
                 else if(firstname.equals(nextKey)){
                     firstname = null;
@@ -40,7 +40,7 @@ public class CreateContact {
                 }
                 level++;
             } if(level==3){
-                lastname = createLastname("Enter your lastname.", true, true);
+                lastname = createLastname("Enter lastname.", true, true);
                 if(lastname.equals(exitKey)) return null;
                 else if(lastname.equals(nextKey)){
                     lastname = null;
@@ -50,7 +50,7 @@ public class CreateContact {
                 }
                 level++;
             } else{
-                UserDTO newContact = authService.findUserByPhoneNumber(phoneNumber);
+                UserDTO newContact = authService.findUserByPhoneNumber(phoneNumber, currentUser.id());
                 if(newContact==null){
                     coutErrorText(notFoundUser);
                     level = 1;
@@ -66,6 +66,35 @@ public class CreateContact {
                 }
                 ChatDTO newChat = handlerService.createChat(currentUser.id(), newContact.id());
                 return newChat;
+            }
+        }
+    }
+
+    public static UserDTO changeContact(UserDTO currentUser, UserDTO secondUser){
+        level = 1;
+        while (true){
+            if(level==1){
+                firstname = createFirstname("Enter firstname.", true, false);
+                if(firstname.equals(exitKey)) return null;
+                else if(firstname.equals(nextKey)){
+                    firstname = null;
+                }
+                level++;
+            } if(level==2){
+                lastname = createLastname("Enter lastname.", true, true);
+                if(lastname.equals(exitKey)) return null;
+                else if(lastname.equals(nextKey)){
+                    lastname = null;
+                } else if (lastname.equals(backKey)) {
+                    level--;
+                    continue;
+                }
+                level++;
+            } else{
+                if(firstname==null && lastname==null)
+                    return authService.editeOrCreateContact(currentUser.id(), secondUser.id(), secondUser.firstname(), secondUser.lastname());
+                else
+                    return authService.editeOrCreateContact(currentUser.id(), secondUser.id(), firstname, lastname);
             }
         }
     }

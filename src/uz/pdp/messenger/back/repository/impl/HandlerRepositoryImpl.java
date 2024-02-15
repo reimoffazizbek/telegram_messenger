@@ -3,6 +3,8 @@ package uz.pdp.messenger.back.repository.impl;
 import uz.pdp.messenger.back.modul.User;
 import uz.pdp.messenger.back.modul.handler.Handler;
 import uz.pdp.messenger.back.modul.handler.chat.Chat;
+import uz.pdp.messenger.back.modul.handler.group.Group;
+import uz.pdp.messenger.back.modul.handler.group.GroupUserInformation;
 import uz.pdp.messenger.back.repository.HandlerRepository;
 
 import java.util.ArrayList;
@@ -27,6 +29,13 @@ public class HandlerRepositoryImpl implements HandlerRepository {
             if (handler instanceof Chat chat) {
                 if (chat.getUserInformations().get(0).getUser().getId().equals(id) || chat.getUserInformations().get(1).getUser().getId().equals(id)) {
                     result.add(chat);
+                }
+            } else if(handler instanceof Group group){
+                for (GroupUserInformation user : group.getUsers()) {
+                    if(user.getUser().getId().equals(id)){
+                        result.add(group);
+                        break;
+                    }
                 }
             }
         }
@@ -53,8 +62,41 @@ public class HandlerRepositoryImpl implements HandlerRepository {
     }
 
     @Override
-    public boolean save(Chat newChat) {
+    public boolean save(Handler newChat) {
         handlers.add(newChat);
         return true;
+    }
+
+    @Override
+    public Chat findChatByChatId(UUID chatId) {
+        for (Handler handler : handlers) {
+            if(handler instanceof Chat chat){
+                if(chat.getID().equals(chatId)){
+                    return chat;
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean delete(UUID chatId) {
+        for (Handler handler : handlers) {
+            if(handler.getID().equals(chatId)) {
+                handlers.remove(handler);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public Group findGroupByGroupId(UUID groupId) {
+        for (Handler handler : handlers) {
+            if(handler.getID().equals(groupId)){
+                return (Group) handler;
+            }
+        }
+        return null;
     }
 }

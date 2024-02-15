@@ -18,6 +18,8 @@ public interface Design {
     String COLOR_WHITE = "\u001B[37m";
     String CONTACT_COLOR = COLOR_GREEN;
     String NO_CONTACT_COLOR = COLOR_RESET;
+    String NEW_SMS = "\u001B[1m" + "\u001B[4m";
+    String GROUP_COLOR = COLOR_YELLOW;
 
     static String logoChars(char ch){
         ch = toUpperCase(ch);
