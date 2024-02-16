@@ -20,37 +20,39 @@ public interface Design {
     String NO_CONTACT_COLOR = COLOR_RESET;
     String NEW_SMS = "\u001B[1m" + "\u001B[4m";
     String GROUP_COLOR = COLOR_YELLOW;
+    String[] logoChar = new String[]{
+            "\uD835\uDCD0",
+            "\uD835\uDCD1",
+            "\uD835\uDCD2",
+            "\uD835\uDCD3",
+            "\uD835\uDCD4",
+            "\uD835\uDCD5",
+            "\uD835\uDCD6",
+            "\uD835\uDCD7",
+            "\uD835\uDCD8",
+            "\uD835\uDCD9",
+            "\uD835\uDCDA",
+            "\uD835\uDCDB",
+            "\uD835\uDCDC",
+            "\uD835\uDCDD",
+            "\uD835\uDCDE",
+            "\uD835\uDCDF",
+            "\uD835\uDCE0",
+            "\uD835\uDCE1",
+            "\uD835\uDCE2",
+            "\uD835\uDCE3",
+            "\uD835\uDCE4",
+            "\uD835\uDCE5",
+            "\uD835\uDCE6",
+            "\uD835\uDCE7",
+            "\uD835\uDCE8",
+            "\uD835\uDCE9"
+    };
+
 
     static String logoChars(char ch){
         ch = toUpperCase(ch);
-        Map<Character, String> logoChar = new HashMap<>(26);
-        logoChar.put('A', "\uD835\uDCD0");
-        logoChar.put('B', "\uD835\uDCD1");
-        logoChar.put('C', "\uD835\uDCD2");
-        logoChar.put('D', "\uD835\uDCD3");
-        logoChar.put('E', "\uD835\uDCD4");
-        logoChar.put('F', "\uD835\uDCD5");
-        logoChar.put('G', "\uD835\uDCD6");
-        logoChar.put('H', "\uD835\uDCD7");
-        logoChar.put('I', "\uD835\uDCD8");
-        logoChar.put('J', "\uD835\uDCD9");
-        logoChar.put('K', "\uD835\uDCDA");
-        logoChar.put('L', "\uD835\uDCDB");
-        logoChar.put('M', "\uD835\uDCDC");
-        logoChar.put('N', "\uD835\uDCDD");
-        logoChar.put('O', "\uD835\uDCDE");
-        logoChar.put('P', "\uD835\uDCDF");
-        logoChar.put('Q', "\uD835\uDCE0");
-        logoChar.put('R', "\uD835\uDCE1");
-        logoChar.put('S', "\uD835\uDCE2");
-        logoChar.put('T', "\uD835\uDCE3");
-        logoChar.put('U', "\uD835\uDCE4");
-        logoChar.put('V', "\uD835\uDCE5");
-        logoChar.put('W', "\uD835\uDCE6");
-        logoChar.put('X', "\uD835\uDCE7");
-        logoChar.put('Y', "\uD835\uDCE8");
-        logoChar.put('Z', "\uD835\uDCE9");
-        String res = logoChar.get(ch);
+        String res = logoChar[ch-65];
         return res!=null ? res : String.valueOf(ch);
     }
 }

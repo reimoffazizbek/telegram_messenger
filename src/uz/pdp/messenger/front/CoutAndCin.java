@@ -14,7 +14,7 @@ public interface CoutAndCin {
     String backKey = "-";
     String nextKey = "+";
     String programName = "Messenger";
-    int consoleX = 170;
+    int consoleX = 100;
 
     static void coutMainText(String text){
         String repeat = "-".repeat((consoleX/2) - (text.length()/2));

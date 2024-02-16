@@ -43,9 +43,9 @@ public class Main {
 //        List<MessageLikeDTO> messageLikeDTOS = new ArrayList<>();
 //        messageLikeDTOS.add(new MessageLikeDTO("☺️", 54));
 //        messageLikeDTOS.add(new MessageLikeDTO("☺️", 54));
-//        messageLikeDTOS.add(new MessageLikeDTO("☺️", 54));
-//        messageLikeDTOS.add(new MessageLikeDTO("☺️", 54));
 //        messageLikeDTOS.add(new MessageLikeDTO("👍", 124));
+//        messageLikeDTOS.add(new MessageLikeDTO("☺️", 54));
+//        messageLikeDTOS.add(new MessageLikeDTO("☺️", 54));
 //        messageLikeDTOS.add(new MessageLikeDTO("👍", 124));
 //        messageLikeDTOS.add(new MessageLikeDTO("👍", 124));
 //        messageLikeDTOS.add(new MessageLikeDTO("👍", 124));

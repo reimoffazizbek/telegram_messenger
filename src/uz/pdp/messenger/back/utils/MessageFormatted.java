@@ -16,7 +16,7 @@ import static uz.pdp.messenger.back.utils.UserInformationUtils.*;
 
 public interface MessageFormatted {
     int MESSAGE_WIDTH = 40;
-    int MY_MESSAGE = 170 - MESSAGE_WIDTH;
+    int MY_MESSAGE = 100 - MESSAGE_WIDTH;
     int HIS_MESSAGE = 5;
 
     String yesSeen = "👍";

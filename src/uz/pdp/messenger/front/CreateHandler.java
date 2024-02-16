@@ -31,7 +31,7 @@ public class CreateHandler {
                 }
             }
             if(currentHandler != null){
-                System.out.println(currentHandler);
+//                System.out.println(currentHandler);
                 openHandler(currentUser, currentHandler);
                 return;
             }
